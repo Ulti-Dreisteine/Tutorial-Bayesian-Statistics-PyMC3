@@ -19,7 +19,7 @@ seaborn
 
 以下安装在python 3.8及以下版本测试有效, 更高python版本待测试:
 
-**注意: 在Anaconda Prompt中执行以下命令**
+**注意: 在Anaconda Prompt(管理员权限打开)中执行以下命令**
 
 ```
 pip install pymc3 -i https://mirrors.aliyun.com/pypi/simple/
@@ -28,11 +28,11 @@ conda install -c conda-forge blas
 conda install -c conda-forge python-graphviz
 ```
 
-若出现warning:
+**注意: 若在import pymc3时出现如下warning**
 
 > WARNING (theano.tensor.blas): Using NumPy C-API based implementation for BLAS functions
 
-则进行以下安装:
+则进行安装:
 
 ```
 conda install mkl
