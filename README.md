@@ -1,7 +1,7 @@
-### Tutorial_Bayesian_Statistics_PyMC3
+## Tutorial_Bayesian_Statistics_PyMC3
 基于PyMC3的贝叶斯统计入门
 
-### 1. 准备工作
+## 1. 准备工作
 
 本项目主要依赖的Python包有:
 
@@ -15,7 +15,7 @@ arviz
 seaborn
 ```
 
-#### 1.1 PyMC3安装
+### 1.1 PyMC3安装
 
 以下安装在python 3.8及以下版本测试有效, 更高python版本待测试:
 
@@ -55,14 +55,16 @@ ldflags=-lmkl_rt
 ldflags=-lblas
 ```
 
-<font color="red">安装完毕后可运行test.pymc_running_test.ipynb对PyMC进行运行测试</font >
+<font color="red">安装完毕后可运行test/pymc_running_test.ipynb对PyMC进行运行测试</font >
 
-#### 1.2 ArviZ安装
+### 1.2 ArviZ安装
 
 ```
 pip install arviz -i https://mirrors.aliyun.com/pypi/simple/
 ```
 
-### 参考
+<font color="red">安装完毕后可运行test/arviz_running_test.py对Arviz进行运行测试</font >
+
+## 参考
 
 * https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers
