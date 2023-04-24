@@ -71,10 +71,17 @@ if __name__ == "__main__":
         sigma_x = pm.HalfNormal("sigma_x", sigma=20)
         sigma_y = pm.HalfNormal("sigma_y", sigma=20)
         rho = pm.Uniform("rho", -1., 1.)
-        cov = pm.math.stack(
+        
+        # NOTE: 两种代码都是可以的, 所以PyMC底层是基于pytensor的数据类型
+        # cov = pm.math.stack(
+        #     ([sigma_x ** 2, sigma_x * sigma_y * rho], 
+        #      [sigma_x * sigma_y * rho, sigma_y ** 2])
+        #     )
+        cov = pytensor.tensor.stack(
             ([sigma_x ** 2, sigma_x * sigma_y * rho], 
              [sigma_x * sigma_y * rho, sigma_y ** 2])
-            )
+        )
+        
         y_pred = pm.MvNormal("y", mu=mu, cov=cov, observed=data)
         
         trace = pm.sample(1000, chains=2)
