@@ -114,6 +114,10 @@ Step 3: 安装Jax
 
 NOTE: 目前Windows上的PyMC还不支持Jax
 
+## 关键点
+
+* pm.Normal()等生成的随机参数为pytensor类型, 需要代入对应的pm.math.stack()和pytensor.tensor.stack()进行处理. 也就是说, 后续所有处理都必须在tensor前提下进行
+
 ## 参考
 
 * PyMC官网: https://www.pymc.io/welcome.html
