@@ -61,7 +61,6 @@ if __name__ == "__main__":
         idxs_bt = random.sample(list(idxs), bt_size)
         coeffs.append(cal_pearson(x_samples[idxs_bt], y_samples[idxs_bt]))
     
-    
     # #### 方法2: 使用贝叶斯估计 #####################################################################
     
     # NOTE: 需要找到PearsonCorr (rho)、sigma_x、sigma_y与高斯分布的关系, 见BAP的Page 81
@@ -73,23 +72,20 @@ if __name__ == "__main__":
         rho = pm.Uniform("rho", -1., 1.)
         
         # NOTE: 两种代码都是可以的, 所以PyMC底层是基于pytensor的数据类型
-        # cov = pm.math.stack(
-        #     ([sigma_x ** 2, sigma_x * sigma_y * rho], 
-        #      [sigma_x * sigma_y * rho, sigma_y ** 2])
-        #     )
-        cov = pytensor.tensor.stack(
+        cov = pm.math.stack(
             ([sigma_x ** 2, sigma_x * sigma_y * rho], 
              [sigma_x * sigma_y * rho, sigma_y ** 2])
-        )
+            )
+        # cov = pytensor.tensor.stack(
+        #     ([sigma_x ** 2, sigma_x * sigma_y * rho], 
+        #      [sigma_x * sigma_y * rho, sigma_y ** 2])
+        # )
         
         y_pred = pm.MvNormal("y", mu=mu, cov=cov, observed=data)
         
         trace = pm.sample(1000, chains=2)
     
-    # az.plot_trace(trace, var_names=["rho"])
-    
     coeffs_real = trace["posterior"]["rho"].values
-    # coeffs = np.apply_along_axis(lambda p: cal_pearson(x_samples, p), 2, y_real)
     
     az.plot_posterior({"PearsonCorr_Bootstrap": coeffs}, kind="hist")
     plt.xlim([0.7, 1.1])
