@@ -13,7 +13,7 @@ Created on 2023/04/24 17:16:36
 
 import pytensor
 import numpy as np
-import pymc as pm
+import pymc3 as pm
 import random
 import arviz as az
 import sys
@@ -54,11 +54,11 @@ if __name__ == "__main__":
     
     coeffs = []
     rounds = 1000
-    bt_size = 50
+    bt_size = 100  # NOTE: 有放回抽样
     idxs = np.arange(len(x_samples))
     
     for _ in range(rounds):
-        idxs_bt = random.sample(list(idxs), bt_size)
+        idxs_bt = random.choices(idxs, k=bt_size)  # NOTE: 有放回抽样
         coeffs.append(cal_pearson(x_samples[idxs_bt], y_samples[idxs_bt]))
     
     # #### 方法2: 使用贝叶斯估计 #####################################################################
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     
     coeffs_real = trace["posterior"]["rho"].values
     
-    az.plot_posterior({"PearsonCorr_Bootstrap": coeffs}, kind="hist")
+    az.plot_posterior({"PearsonCorr_Bootstrap": coeffs}, kind="hist", ref_val=pearson_real)
     plt.xlim([0.7, 1.1])
     az.plot_posterior({"PearsonCorr_Bayesian": coeffs_real.flatten()}, kind="hist", range=(0.7, 1.1))
     plt.xlim([0.7, 1.1])
