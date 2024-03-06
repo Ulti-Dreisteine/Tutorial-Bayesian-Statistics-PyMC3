@@ -80,7 +80,6 @@ conda config --set show_channel_urls yes
 channels:
   - conda-forge
   - defaults
-show_channel_urls: true
 default_channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
